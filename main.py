@@ -3,63 +3,72 @@ import random
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
 word_game = []
 
+# Snowman ASCII Art stages
+STAGES = [
+     # Stage 0: Full snowman
+     """
+      ___  
+     /___\\ 
+     (o o) 
+     ( : ) 
+     ( : ) 
+     """,
+     # Stage 1: Bottom part starts melting
+     """
+      ___  
+     /___\\ 
+     (o o) 
+     ( : ) 
+     """,
+     # Stage 2: Only the head remains
+     """
+      ___  
+     /___\\ 
+     (o o) 
+     """,
+     # Stage 3: Snowman completely melted
+     """
+      ___  
+     /___\\ 
+     """
+ ]
+
 def get_random_word():
 
     return random.choice(WORDS)
+def display_game_state(mistakes, secret_word , guessed_letter):
+    print(STAGES[mistakes])
+    # Build a display version of the secret word
+
+    display_word = ''
+    for letter in secret_word:
+        if letter == guessed_letter:
+            display_word += letter
+        else:
+            display_word += '_'
+
+    print("Word: ", display_word)
+    print("\n")
 
 
 def play_game():
     # Use a breakpoint in the code line below to debug your script.
-    #print('Welcome to Snowman Meltdown!\n\n')
+
     print("i am here fun play_game")
-    #######snow man body parts##########
-
-    head_top = " ___ "
-    head_bottom = "/___\\"
-    face = "(ö ö)"
-    body_top = "( : )"
-    body_bottom = "( : )"
-
-    #####################################
-    counter = 0
-
-
-    list_snowman_parts = [
-        head_top,
-        head_bottom,
-        face,
-        body_top,
-        body_bottom,
-    ]
-
     print('Welcome to Snowman Meltdown! \n' )
-    random_word = get_random_word()
-    for part in list_snowman_parts:
-        print("\033[97m"+ part+ "\033[96m")
+    # For now, display the initial game state.
 
-   # print( f"Word: \n", end="")
-    print(random_word)
-    print(f"Word: ", end="")
+    secret_word = get_random_word()
+    mistakes = 0
+    guessed_letter = []
 
-    for dash in range(0,len(random_word)):
-        #user_guess = input("Guess a letter:")
-        print("_", end="")
-        word_game.append('_')
-    print('\n\n')
-    while counter < 3:
-        user_guess = input("Guess a letter:")
-        if user_guess in random_word:
-           # print(f"{user_guess}", end = '')
-            index_guess = list(random_word).index(user_guess)
-            word_game[index_guess] = user_guess
-            for item in word_game:
-                print(item , end=" ")
+    # Prompt user for one guess (logic to be enhanced later)
 
-        print('\n')
+    display_game_state(mistakes, secret_word, guessed_letter)
+    guess = input("Guess a letter: ").lower()
+    print("You guessed:", guess)
 
 
-        counter += 1
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     play_game()
-assert get_random_word()
