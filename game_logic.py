@@ -68,7 +68,7 @@ def play_game():
             print("You already guessed this letter!")
             guess = input("Guess a letter: ").lower()
 
-        while len(guess) != 1 or not (guess.isalpha()) or guess.isascii():
+        while len(guess) != 1 or not (guess.isalpha()) or not guess.isascii():
             guess = input("\n✓please enter just ONE letter: "
                           ).lower()
 
