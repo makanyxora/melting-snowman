@@ -6,6 +6,7 @@ print(secret_word)
 word_game = []
 display_word = ""
 mistakes = 0
+
 def get_random_word():
 
     return random.choice(WORDS)
@@ -26,6 +27,13 @@ def display_game_state(mistakes, secret_word , guessed_letter):
     print("\n")
     return display_word
 
+def play_again():
+    play_again = input("\nWould you like to play again? yes(y) or no(n) ").lower()
+    if play_again == "y":
+        play_game()
+    else:
+        print("THANK YOU FOR YOUR GAME")
+    return
 
 def play_game():
     # Use a breakpoint in the code line below to debug your script.
@@ -38,20 +46,25 @@ def play_game():
     current_game_word = display_game_state(mistakes, secret_word, guessed_letter)
 
     # Prompt user for one guess (logic to be enhanced later)
-    while mistakes < 3 and (current_game_word) != (secret_word):
+    while mistakes < 6 and (current_game_word) != (secret_word):
         guess = input("Guess a letter: ").lower()
+        while len(guess) != 1 or not (guess.isalpha()):
+            guess = input("\n✓please enter just ONE letter: ").lower()
+
         print("You guessed:", guess)
 
         if guess in secret_word:
             guessed_letter.append(guess)
-            display_game_state(mistakes, secret_word, guessed_letter)
+            current_game_word = display_game_state(mistakes, secret_word, guessed_letter)
         else:
             mistakes +=1
             display_game_state(mistakes, secret_word, guessed_letter)
 
-        current_game_word = display_game_state(mistakes, secret_word, guessed_letter)
+       # current_game_word = display_game_state(mistakes, secret_word, guessed_letter)
         if current_game_word == secret_word:
             print("Congratulations! You saved the snowman! ☃️")
-        elif mistakes >= 3 :
+        elif mistakes >= 6 :
             print("Oh no! The snowman melted! ⛄")
             print("The secret word was:", secret_word)
+
+    play_again()
